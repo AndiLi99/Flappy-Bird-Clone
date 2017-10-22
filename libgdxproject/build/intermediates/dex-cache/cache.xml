@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/andi/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-android/1.9.6/57c2831c870743712b808384187ea856e541878f/gdx-backend-android-1.9.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="57c2831c870743712b808384187ea856e541878f">
+        <dex dex="/home/andi/Documents/1A/CS137/se101-f17-group-11/libgdxproject/android/build/intermediates/pre-dexed/debug/gdx-backend-android-1.9.6_b654b64adfda064776a57c332a90bf4f707df908.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/andi/Documents/1A/CS137/se101-f17-group-11/libgdxproject/core/build/libs/core-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2e8c27be3a998425fa6c2cbf82fd2014f0799945">
+        <dex dex="/home/andi/Documents/1A/CS137/se101-f17-group-11/libgdxproject/android/build/intermediates/pre-dexed/debug/core-1.0_ba571cbe68e10da22e2d5e6d979f18539a7ffe8c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/andi/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d/1.9.6/c249ef4060a4fada952f278455c8f7b9cba3c18a/gdx-box2d-1.9.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c249ef4060a4fada952f278455c8f7b9cba3c18a">
+        <dex dex="/home/andi/Documents/1A/CS137/se101-f17-group-11/libgdxproject/android/build/intermediates/pre-dexed/debug/gdx-box2d-1.9.6_fc75d0a6b6b0af00b11e27fc8e4a2a3847b1548e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/andi/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.9.6/47d1e9b890e364ec28f128e9bb3b9a12a94c164/gdx-1.9.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="047d1e9b890e364ec28f128e9bb3b9a12a94c164">
+        <dex dex="/home/andi/Documents/1A/CS137/se101-f17-group-11/libgdxproject/android/build/intermediates/pre-dexed/debug/gdx-1.9.6_09eb522f0fc045cb5fd0a6ce5e3ca7218835ed02.jar" />
+    </item>
+
+</items>
