@@ -1,5 +1,7 @@
 package com.example.se101group11.flappybird;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -11,12 +13,15 @@ import android.graphics.Rect;
 
 public class RectPlayer implements GameObject {
 
-    private xPos;
-    private yPos;
-    private birdHeight;
-    
-    private deltaY;
-    private final
+    private int xPos = Constants.SCREEN_WIDTH/2;
+    private float yPos;
+    private int birdHeight;
+    private int birdWidth;
+    private final int accelY = 3;
+    private int deltaY;
+    private boolean jump = false;
+
+    private Bitmap btmp;
     private Rect rectangle;
     private int color;
 
@@ -24,10 +29,13 @@ public class RectPlayer implements GameObject {
         return rectangle;
     }
 
-    public RectPlayer(Rect rectangle, int color)
+    public RectPlayer(Rect rectangle, int color, Bitmap btmp)
     {
         this.rectangle = rectangle;
         this.color = color;
+        this.btmp = btmp;
+        birdHeight=btmp.getHeight();
+        birdWidth=btmp.getWidth();
     }
 
     @Override
@@ -36,6 +44,8 @@ public class RectPlayer implements GameObject {
 
         paint.setColor(color);
         canvas.drawRect(rectangle, paint);
+        canvas.drawBitmap(btmp, rectangle.centerX(), rectangle.centerY(), null);
+
     }
 
     @Override
@@ -44,10 +54,16 @@ public class RectPlayer implements GameObject {
 
     }
 
+    public void jump(){
+        deltaY=-25;
+    }
+
     public void update(Point point){
-        //l t r b
-        rectangle.set(point.x - rectangle.width()/2, point.y - rectangle.height()/2, point.x +rectangle.width()/2,
-                point.y + rectangle.height()/2);
+        yPos+= deltaY;
+        deltaY+= accelY;
+
+        rectangle.set(xPos -birdWidth/2,(int)( yPos-birdHeight/2), xPos+birdWidth/2, (int)(yPos+birdHeight/2));
+
 
     }
 }
