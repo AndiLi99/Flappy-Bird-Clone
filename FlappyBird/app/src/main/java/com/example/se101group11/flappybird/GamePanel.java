@@ -1,6 +1,7 @@
 package com.example.se101group11.flappybird;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -33,7 +34,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
         thread = new MainThread(getHolder(), this);
 
-        player = new RectPlayer(new Rect(50, 50, 100, 100), Color.rgb(255, 0, 0));
+
+        player = new RectPlayer(new Rect(100, 100, 200, 200), Color.rgb(255, 0, 0), BitmapFactory.decodeResource(getResources(), R.drawable.flappybird1));
 
         playerPoint = new Point(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT*3/4);
         player.update(playerPoint);
@@ -82,13 +84,19 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     public boolean onTouchEvent(MotionEvent event){
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
+
                 if(!gameOver)
-                    playerPoint.set((int)event.getX(), (int)event.getY());
+                {
+                    player.jump();
+                }
+
                 if(gameOver)
                 {
                     reset();
                     gameOver = false;
                 }
+
+
         }
 
         return true;
