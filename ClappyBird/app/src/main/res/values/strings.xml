@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Clappy Bird</string>
+
+    <string name="title_activity_game_view">GameView</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="play_button">Play</string>
+</resources>
