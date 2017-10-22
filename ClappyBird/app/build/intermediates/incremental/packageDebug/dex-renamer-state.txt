@@ -1,0 +1,7 @@
+#Sun Oct 22 14:03:24 EDT 2017
+base.0=/home/andi/Documents/1A/CS137/ClappyBird/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_250fb2b6277a36394c10a39dbed09815a8c6f090
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/home/andi/Documents/1A/CS137/ClappyBird/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_da480af43a9fa61f42fce5202fa3d3ef7f8a5422/classes.dex
+base.1=/home/andi/Documents/1A/CS137/ClappyBird/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_da480af43a9fa61f42fce5202fa3d3ef7f8a5422
+file.0=/home/andi/Documents/1A/CS137/ClappyBird/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_250fb2b6277a36394c10a39dbed09815a8c6f090/classes.dex
