@@ -44,7 +44,7 @@ public class RectPlayer implements GameObject {
 
         paint.setColor(color);
         canvas.drawRect(rectangle, paint);
-        canvas.drawBitmap(btmp, rectangle.centerX(), rectangle.centerY(), null);
+        canvas.drawBitmap(btmp, rectangle.left, rectangle.top, null);
 
     }
 
