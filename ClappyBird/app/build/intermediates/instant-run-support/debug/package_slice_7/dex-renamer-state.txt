@@ -1,4 +1,0 @@
-#Sun Oct 22 14:03:23 EDT 2017
-base.0=/home/andi/Documents/1A/CS137/ClappyBird/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_7
-renamed.0=classes.dex
-file.0=/home/andi/Documents/1A/CS137/ClappyBird/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_7/classes.dex
