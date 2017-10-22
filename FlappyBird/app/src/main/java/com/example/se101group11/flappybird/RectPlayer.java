@@ -11,12 +11,6 @@ import android.graphics.Rect;
 
 public class RectPlayer implements GameObject {
 
-    private xPos;
-    private yPos;
-    private birdHeight;
-    
-    private deltaY;
-    private final
     private Rect rectangle;
     private int color;
 

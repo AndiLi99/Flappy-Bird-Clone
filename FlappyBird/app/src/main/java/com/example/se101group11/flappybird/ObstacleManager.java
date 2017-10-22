@@ -30,25 +30,34 @@ public class ObstacleManager {
 
     }
 
+    public boolean playerCollide(RectPlayer player){
+        for (Obstacle ob : obstacles){
+            if (ob.playerCollide(player))
+                return true;
+
+        }
+        return false;
+    }
+
     private void populateObstacles(){
-        int currY = -5*Constants.SCREEN_HEIGHT/4;
-        while(currY < 0){
-            int xStart = (int) (Math.random()*(Constants.SCREEN_WIDTH- playerGap));
-            obstacles.add(new Obstacle(obstacleHeight, color, xStart, currY, playerGap));
-            currY += obstacleHeight + obstacleGap;
+        int currX = 2*Constants.SCREEN_WIDTH;
+        while(currX > Constants.SCREEN_WIDTH){
+            int yStart = (int) (Math.random()*(Constants.SCREEN_HEIGHT- playerGap));
+            obstacles.add(new Obstacle(obstacleHeight, color, currX, yStart, playerGap));
+            currX -= obstacleHeight + obstacleGap;
         }
     }
 
     public void update(){
         int elapsedTime =(int) (System.currentTimeMillis() - startTime);
         startTime = System.currentTimeMillis();
-        float speed = 3.0f*Constants.SCREEN_HEIGHT/10000.0f;
+        float speed = 3.0f*Constants.SCREEN_WIDTH/10000.0f;
         for(Obstacle ob: obstacles){
-            ob.incrementY(speed * elapsedTime);
+            ob.incrementX(speed * elapsedTime);
         }
-        if (obstacles.get(obstacles.size()-1).getRectangle().top >= Constants.SCREEN_HEIGHT){
-            int xStart = (int) (Math.random()*(Constants.SCREEN_WIDTH - playerGap));
-            obstacles.add(0, new Obstacle(obstacleHeight, color, xStart, obstacles.get(0).getRectangle().top - obstacleHeight - obstacleGap , playerGap));
+        if (obstacles.get(obstacles.size()-1).getRectangle().right <= 0){
+            int yStart = (int) (Math.random()*(Constants.SCREEN_HEIGHT - playerGap));
+            obstacles.add(0, new Obstacle(obstacleHeight, color, obstacles.get(0).getRectangle().right + obstacleHeight + obstacleGap, yStart, playerGap));
             obstacles.remove(obstacles.size() - 1);
         }
     }

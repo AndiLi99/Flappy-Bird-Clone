@@ -18,29 +18,30 @@ public class Obstacle implements GameObject{
         return rectangle;
     }
 
-    public void incrementY(float y){
-        rectangle.top += y;
-        rectangle.bottom +=y;
-        rectangle2.top += y;
-        rectangle2.bottom +=y;
+    public void incrementX(float x){
+        rectangle.left -= x;
+        rectangle.right -=x;
+        rectangle2.left -= x;
+        rectangle2.right -=x;
     }
 
     public Obstacle(int rectHeight, int color, int startX, int startY, int playerGap)
     {
+        //l,t,r,b
         this.color = color;
 
-        rectangle = new Rect(0, startY, startX, startY+rectHeight);
-        rectangle2 = new Rect(startX+ playerGap, startY, Constants.SCREEN_WIDTH, startY+rectHeight);
+        rectangle = new Rect(startX, 0, startX+rectHeight, startY);
+        rectangle2 = new Rect(startX, startY + playerGap, startX + rectHeight, Constants.SCREEN_HEIGHT);
 
     }
 
     public boolean playerCollide(RectPlayer player){
-        if (rectangle.contains(player.getRectangle().left, player.getRectangle().top)
-                || rectangle.contains(player.getRectangle().right, player.getRectangle().top)
-                || rectangle.contains(player.getRectangle().left, player.getRectangle().bottom)
-                || rectangle.contains(player.getRectangle().right, player.getRectangle().bottom))
-                return true;
-        return false;
+//        if (rectangle.contains(player.getRectangle().left, player.getRectangle().top)
+//                || rectangle.contains(player.getRectangle().right, player.getRectangle().top)
+//                || rectangle.contains(player.getRectangle().left, player.getRectangle().bottom)
+//                || rectangle.contains(player.getRectangle().right, player.getRectangle().bottom))
+//                return true;
+        return Rect.intersects(rectangle, player.getRectangle()) || Rect.intersects(rectangle2, player.getRectangle());
     }
 
     @Override
