@@ -60,6 +60,10 @@ public class ObstacleManager {
             obstacles.add(0, new Obstacle(obstacleHeight, color, obstacles.get(0).getRectangle().right + obstacleHeight + obstacleGap, yStart, playerGap));
             obstacles.remove(obstacles.size() - 1);
         }
+
+        if (obstacles.get(obstacles.size()-1).getRectangle().right <= Constants.SCREEN_WIDTH/2){
+            GamePanel.score++;
+        }
     }
 
     public void draw(Canvas canvas){

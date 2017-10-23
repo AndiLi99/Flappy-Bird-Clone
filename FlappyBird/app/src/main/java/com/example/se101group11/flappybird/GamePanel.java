@@ -19,6 +19,8 @@ import android.view.SurfaceView;
 public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private MainThread thread;
 
+    public static int score;
+
     private Rect r = new Rect();
 
     private RectPlayer player;
@@ -34,7 +36,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
         thread = new MainThread(getHolder(), this);
 
-
+        score = 0;
         player = new RectPlayer(new Rect(100, 100, 200, 200), Color.rgb(255, 0, 0), BitmapFactory.decodeResource(getResources(), R.drawable.flappybird1));
 
         playerPoint = new Point(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT*3/4);
@@ -54,7 +56,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         playerPoint = new Point(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT*3/4);
         player.update(playerPoint);
         obstacleManager = new ObstacleManager(200, 250, 75, Color.BLACK);
-
+        score = 0;
 
     }
 
@@ -122,12 +124,22 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         player.draw(canvas);
         obstacleManager.draw(canvas);
 
+        drawScore(canvas);
+
         if (gameOver){
             Paint paint = new Paint();
-            paint.setTextSize(100);
+            paint.setTextSize(50);
             paint.setColor(Color.BLUE);
             drawCentreText(canvas, paint, "GAME OVER");
         }
+    }
+
+    private void drawScore(Canvas canvas){
+        Paint paint = new Paint();
+        paint.setColor(Color.BLUE);
+        paint.setTextSize(30);
+        String text = "" + score;
+        canvas.drawText(text, 50, 50, paint);
     }
 
     private void drawCentreText(Canvas canvas, Paint paint, String text) {
