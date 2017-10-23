@@ -1,5 +1,6 @@
 package com.example.se101group11.flappybird;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -9,10 +10,11 @@ import android.graphics.Rect;
  */
 
 public class Obstacle implements GameObject{
+    static Bitmap bitmap1;
+    static Bitmap bitmap2;
     private Rect rectangle;
     private int color;
     private Rect rectangle2;
-
 
     public Rect getRectangle() {
         return rectangle;
@@ -32,7 +34,6 @@ public class Obstacle implements GameObject{
 
         rectangle = new Rect(startX, 0, startX+rectHeight, startY);
         rectangle2 = new Rect(startX, startY + playerGap, startX + rectHeight, Constants.SCREEN_HEIGHT);
-
     }
 
     public boolean playerCollide(RectPlayer player){
@@ -55,5 +56,7 @@ public class Obstacle implements GameObject{
         paint.setColor(color);
         canvas.drawRect(rectangle, paint);
         canvas.drawRect(rectangle2, paint);
+        canvas.drawBitmap(bitmap2, rectangle.left, rectangle.bottom-bitmap2.getHeight(),null);
+        canvas.drawBitmap(bitmap1, rectangle2.left, rectangle2.top,null);
     }
 }

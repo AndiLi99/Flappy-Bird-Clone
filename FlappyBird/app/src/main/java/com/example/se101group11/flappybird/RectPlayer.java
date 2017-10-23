@@ -45,9 +45,14 @@ public class RectPlayer implements GameObject {
         Paint paint = new Paint();
 
         paint.setColor(color);
-        canvas.drawRect(rectangle, paint);
         canvas.drawBitmap(btmp, rectangle.left, rectangle.top, null);
 
+    }
+
+    public void init(){
+        yPos=Constants.SCREEN_HEIGHT/2;
+        deltaY=0;
+        rectangle.set(xPos -birdWidth/2,(int)( yPos-birdHeight/2), xPos+birdWidth/2, (int)(yPos+birdHeight/2));
     }
 
     @Override
@@ -61,9 +66,12 @@ public class RectPlayer implements GameObject {
     }
 
     public void update(Point point){
+        if (yPos +deltaY< 0){
+            deltaY =0;
+        }
+
         yPos+= deltaY;
         deltaY+= accelY;
-
         rectangle.set(xPos -birdWidth/2,(int)( yPos-birdHeight/2), xPos+birdWidth/2, (int)(yPos+birdHeight/2));
 
 
