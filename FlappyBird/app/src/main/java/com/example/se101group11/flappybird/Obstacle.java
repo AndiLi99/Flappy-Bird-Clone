@@ -54,8 +54,6 @@ public class Obstacle implements GameObject{
     public void draw(Canvas canvas) {
         Paint paint = new Paint();
         paint.setColor(color);
-        canvas.drawRect(rectangle, paint);
-        canvas.drawRect(rectangle2, paint);
         canvas.drawBitmap(bitmap2, rectangle.left, rectangle.bottom-bitmap2.getHeight(),null);
         canvas.drawBitmap(bitmap1, rectangle2.left, rectangle2.top,null);
     }
