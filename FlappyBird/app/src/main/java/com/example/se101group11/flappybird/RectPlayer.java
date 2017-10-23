@@ -3,6 +3,7 @@ package com.example.se101group11.flappybird;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -45,9 +46,23 @@ public class RectPlayer implements GameObject {
         Paint paint = new Paint();
 
         paint.setColor(color);
-        canvas.drawRect(rectangle, paint);
-        canvas.drawBitmap(btmp, rectangle.left, rectangle.top, null);
+        Matrix matrix = new Matrix();
 
+
+        matrix.postRotate(Math.min(deltaY*2, 75));
+
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(btmp,btmp.getWidth(),btmp.getHeight(),true);
+
+        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0, scaledBitmap .getWidth(), scaledBitmap .getHeight(), matrix, true);
+
+        canvas.drawBitmap(rotatedBitmap, rectangle.left, rectangle.top, null);
+
+    }
+
+    public void init(){
+        yPos=Constants.SCREEN_HEIGHT/2;
+        deltaY=0;
+        rectangle.set(xPos -birdWidth/2,(int)( yPos-birdHeight/2), xPos+birdWidth/2, (int)(yPos+birdHeight/2));
     }
 
     @Override
@@ -61,9 +76,12 @@ public class RectPlayer implements GameObject {
     }
 
     public void update(Point point){
+        if (yPos +deltaY< 0){
+            deltaY =0;
+        }
+
         yPos+= deltaY;
         deltaY+= accelY;
-
         rectangle.set(xPos -birdWidth/2,(int)( yPos-birdHeight/2), xPos+birdWidth/2, (int)(yPos+birdHeight/2));
 
 

@@ -1,6 +1,7 @@
 package com.example.se101group11.flappybird;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -21,12 +22,12 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
     public static int score;
 
-    private Rect r = new Rect();
 
+    private Rect r = new Rect();
     private RectPlayer player;
     private Point playerPoint;
     private ObstacleManager obstacleManager;
-
+    private Bitmap background= BitmapFactory.decodeResource(getResources(), R.drawable.bg);
     private boolean gameOver = false;
 
     public GamePanel(Context context){
@@ -37,13 +38,15 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         thread = new MainThread(getHolder(), this);
 
         score = 0;
-        player = new RectPlayer(new Rect(100, 100, 200, 200), Color.rgb(255, 0, 0), BitmapFactory.decodeResource(getResources(), R.drawable.flappybird1));
+
+        player = new RectPlayer(new Rect(100, 100, 200, 200), Color.rgb(255, 0, 0), BitmapFactory.decodeResource(getResources(), R.drawable.bird2));
 
         playerPoint = new Point(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT*3/4);
         player.update(playerPoint);
 
-        obstacleManager = new ObstacleManager(100, 150,75, Color.BLACK);
-
+        obstacleManager = new ObstacleManager(100, 150,100, Color.BLACK);
+        Obstacle.bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.bottomtube);
+        Obstacle.bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.toptube);
         setFocusable(true);
     }
 
@@ -53,8 +56,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     public void reset(){
-        playerPoint = new Point(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT*3/4);
-        player.update(playerPoint);
+   player.init();
         obstacleManager = new ObstacleManager(200, 250, 75, Color.BLACK);
         score = 0;
 
@@ -109,7 +111,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         if (!gameOver){
             player.update(playerPoint);
             obstacleManager.update();
-            if (obstacleManager.playerCollide(player))
+            if (obstacleManager.playerCollide(player)||player.getRectangle().bottom > Constants.SCREEN_HEIGHT)
                 gameOver = true;
         }
     }
@@ -119,7 +121,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         super.draw(canvas);
 
 
-        canvas.drawColor(Color.WHITE);
+        canvas.drawBitmap(background, 0, 0, null);
 
         player.draw(canvas);
         obstacleManager.draw(canvas);

@@ -55,7 +55,7 @@ public class ObstacleManager {
         for(Obstacle ob: obstacles){
             ob.incrementX(speed * elapsedTime);
         }
-        if (obstacles.get(obstacles.size()-1).getRectangle().right <= 0){
+        if (obstacles.get(obstacles.size()-1).getRectangle().right <= -50){
             int yStart = (int) (Math.random()*(Constants.SCREEN_HEIGHT - playerGap));
             obstacles.add(0, new Obstacle(obstacleHeight, color, obstacles.get(0).getRectangle().right + obstacleHeight + obstacleGap, yStart, playerGap));
             obstacles.remove(obstacles.size() - 1);
