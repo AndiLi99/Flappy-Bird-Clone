@@ -66,6 +66,9 @@ public class ObstacleManager {
 
         if (obstacles.get(obstacles.size()-1).getRectangle().right <= Constants.SCREEN_WIDTH/2 && !addedScore){
             GamePanel.score++;
+            if (GamePanel.score > GamePanel.highScore){
+                GamePanel.highScore++;
+            }
             addedScore = true;
         }
     }
