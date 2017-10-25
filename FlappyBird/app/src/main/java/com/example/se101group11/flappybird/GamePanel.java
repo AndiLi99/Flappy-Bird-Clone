@@ -27,7 +27,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private RectPlayer player;
     private Point playerPoint;
     private ObstacleManager obstacleManager;
-    private Bitmap background= BitmapFactory.decodeResource(getResources(), R.drawable.bg);
+    private Imgs imgs;
+
     private boolean gameOver = false;
 
     public GamePanel(Context context){
@@ -37,9 +38,17 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
         thread = new MainThread(getHolder(), this);
 
-        score = 0;
+        imgs = new Imgs(context);
+
         highScore = 0;
 
+        startGame();
+
+        setFocusable(true);
+    }
+
+    public void startGame(){
+        score = 0;
         player = new RectPlayer(new Rect(100, 100, 200, 200), Color.rgb(255, 0, 0), BitmapFactory.decodeResource(getResources(), R.drawable.bird2));
 
         playerPoint = new Point(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT*3/4);
@@ -48,7 +57,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         obstacleManager = new ObstacleManager(100, 150,100, Color.BLACK);
         Obstacle.bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.bottomtube);
         Obstacle.bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.toptube);
-        setFocusable(true);
     }
 
     @Override
@@ -57,7 +65,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     public void reset(){
-   player.init();
+        player.init();
         obstacleManager = new ObstacleManager(200, 250, 75, Color.BLACK);
         score = 0;
 
@@ -87,6 +95,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
+        float x = event.getX();
+        float y = event.getY();
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
 
@@ -122,7 +132,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         super.draw(canvas);
 
 
-        canvas.drawBitmap(background, 0, 0, null);
+        canvas.drawBitmap(imgs.background, 0, 0, null);
 
         player.draw(canvas);
         obstacleManager.draw(canvas);
@@ -133,7 +143,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
             Paint paint = new Paint();
             paint.setTextSize(50);
             paint.setColor(Color.BLUE);
-            drawCentreText(canvas, paint, "GAME OVER");
+            canvas.drawBitmap(imgs.gameOverText, Constants.SCREEN_WIDTH/2 - imgs.gameOverText.getWidth()/2, Constants.SCREEN_HEIGHT/3,null);
+
+            canvas.drawBitmap(imgs.playButton, Constants.SCREEN_WIDTH/2-imgs.playButton.getWidth()/2,
+                    Constants.SCREEN_HEIGHT/3 +imgs.gameOverText.getHeight()+ imgs.playButton.getHeight()/2,null);
         }
     }
 
@@ -149,13 +162,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     private void drawCentreText(Canvas canvas, Paint paint, String text) {
-        paint.setTextAlign(Paint.Align.LEFT);
-        canvas.getClipBounds(r);
-        int cHeight = r.height();
-        int cWidth = r.width();
-        paint.getTextBounds(text, 0, text.length(), r);
-        float x = cWidth / 2f - r.width() / 2f - r.left;
-        float y = cHeight / 2f + r.height() / 2f - r.bottom;
-        canvas.drawText(text, x, y, paint);
+
     }
 }
