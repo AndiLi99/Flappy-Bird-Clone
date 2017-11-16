@@ -21,10 +21,10 @@ public class Obstacle implements GameObject{
     }
 
     public void incrementX(float x){
-        rectangle.left -= x;
-        rectangle.right -=x;
-        rectangle2.left -= x;
-        rectangle2.right -=x;
+        rectangle.left -= (int)x;
+        rectangle.right -=(int)x;
+        rectangle2.left -= (int)x;
+        rectangle2.right -=(int)x;
     }
 
     public Obstacle(int rectHeight, int color, int startX, int startY, int playerGap)
@@ -54,7 +54,7 @@ public class Obstacle implements GameObject{
     public void draw(Canvas canvas) {
         Paint paint = new Paint();
         paint.setColor(color);
-        canvas.drawBitmap(bitmap2, rectangle.left, rectangle.bottom-bitmap2.getHeight(),null);
-        canvas.drawBitmap(bitmap1, rectangle2.left, rectangle2.top,null);
+        canvas.drawBitmap(bitmap2, rectangle.left, rectangle.bottom-bitmap2.getHeight(),paint);
+        canvas.drawBitmap(bitmap1, rectangle2.left, rectangle2.top,paint);
     }
 }

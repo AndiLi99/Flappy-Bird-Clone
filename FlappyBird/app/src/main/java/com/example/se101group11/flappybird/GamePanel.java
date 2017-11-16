@@ -45,6 +45,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private Bitmap playAgain = BitmapFactory.decodeResource(getResources(), R.drawable.button);
     private Bitmap scoreBoard = BitmapFactory.decodeResource(getResources(), R.drawable.menuscore);
     private Bitmap gameOverPic = BitmapFactory.decodeResource(getResources(), R.drawable.gameover);
+    private Bitmap tutorialPic = BitmapFactory.decodeResource(getResources(), R.drawable.tutorial);
 
     private boolean gameStarted = false;
     private boolean gameOver = false;
@@ -125,6 +126,7 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
                     if (withinBitmap(x, y, playAgain,Constants.SCREEN_WIDTH/2 - playAgain.getWidth()/2, Constants.SCREEN_HEIGHT/2 + 2*playAgain.getHeight()/2)) {
                         reset();
                         gameOver = false;
+                        player.jump();
                     }
 
                     if (withinBitmap(x, y, menuButton, Constants.SCREEN_WIDTH/2 - menuButton.getWidth()/2, 3*Constants.SCREEN_HEIGHT/4)){
@@ -137,6 +139,7 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
                 else if (!gameStarted){
                     reset();
                     gameStarted = true;
+                    player.jump();
                 }
         }
 
@@ -160,8 +163,8 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
 
         canvas.drawBitmap(background, 0, 0, null);
 
-        player.draw(canvas);
         obstacleManager.draw(canvas);
+        player.draw(canvas);
 
         if(!gameOver)
             drawScore(canvas, 0, 25, score);
@@ -192,10 +195,10 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
             System.out.println(highScore);
         } else if(!gameStarted){
             Paint paint = new Paint();
-            paint.setTextSize(50);
-            paint.setColor(Color.BLUE);
-            drawCentreText(canvas, paint, "Start Game!");
+            canvas.drawBitmap(tutorialPic, Constants.SCREEN_WIDTH/2 - tutorialPic.getWidth()/2, Constants.SCREEN_HEIGHT/2 - tutorialPic.getHeight()/2, paint);
         }
+
+
     }
 
     private int getScoreLength(int thisScore)
