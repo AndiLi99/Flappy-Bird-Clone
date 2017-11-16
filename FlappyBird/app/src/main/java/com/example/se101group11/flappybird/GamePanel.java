@@ -29,6 +29,19 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private ObstacleManager obstacleManager;
     private Bitmap background= BitmapFactory.decodeResource(getResources(), R.drawable.bg);
     private Bitmap playAgain = BitmapFactory.decodeResource(getResources(), R.drawable.play);
+
+    private Bitmap zeroPNG = BitmapFactory.decodeResource(getResources(), R.drawable.zero);
+    private Bitmap onePNG = BitmapFactory.decodeResource(getResources(), R.drawable.one);
+    private Bitmap twoPNG = BitmapFactory.decodeResource(getResources(), R.drawable.two);
+    private Bitmap threePNG = BitmapFactory.decodeResource(getResources(), R.drawable.three);
+    private Bitmap fourPNG = BitmapFactory.decodeResource(getResources(), R.drawable.four);
+    private Bitmap fivePNG = BitmapFactory.decodeResource(getResources(), R.drawable.five);
+    private Bitmap sixPNG = BitmapFactory.decodeResource(getResources(), R.drawable.six);
+    private Bitmap sevenPNG = BitmapFactory.decodeResource(getResources(), R.drawable.seven);
+    private Bitmap eightPNG = BitmapFactory.decodeResource(getResources(), R.drawable.eight);
+    private Bitmap ninePNG = BitmapFactory.decodeResource(getResources(), R.drawable.nine);
+
+
     private boolean gameStarted = true;
     private boolean gameOver = false;
 
@@ -63,9 +76,9 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int centreX, int centr
 }
 
     public void reset(){
-   player.init();
+        player.init();
         obstacleManager = new ObstacleManager(200, 250, 75, Color.BLACK);
-        score = 0;
+        score = 15;
 
     }
 
@@ -157,13 +170,65 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int centreX, int centr
 
 
         Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
-        paint.setTextSize(30);
-        String text = "" + score;
-        canvas.drawText(text, 50, 50, paint);
-        text = "" + highScore;
-        paint.setColor(Color.RED);
-        canvas.drawText(text, 100, 50, paint);
+//        paint.setColor(Color.BLUE);
+//        paint.setTextSize(30);
+//        String text = "" + score;
+//        canvas.drawText(text, 50, 50, paint);
+//        text = "" + highScore;
+//        paint.setColor(Color.RED);
+//        canvas.drawText(text, 100, 50, paint);
+
+        int tempScore = score;
+        int scoreLength = 0;
+        do
+        {
+            tempScore /= 10;
+            scoreLength++;
+        } while (tempScore != 0);
+
+
+        int digitWidth = 20;
+        tempScore = score;
+
+        for(int i = scoreLength; i > 0; i--)
+        {
+            int thisDigit = tempScore % 10;
+            tempScore /= 10;
+            switch (thisDigit)
+            {
+                case 0:
+                    canvas.drawBitmap(zeroPNG, digitWidth*i, 25, paint);
+                    break;
+                case 1:
+                    canvas.drawBitmap(onePNG, digitWidth*i, 25, paint);
+                    break;
+                case 2:
+                    canvas.drawBitmap(twoPNG, digitWidth*i, 25, paint);
+                    break;
+                case 3:
+                    canvas.drawBitmap(threePNG, digitWidth*i, 25, paint);
+                    break;
+                case 4:
+                    canvas.drawBitmap(fourPNG, digitWidth*i, 25, paint);
+                    break;
+                case 5:
+                    canvas.drawBitmap(fivePNG, digitWidth*i, 25, paint);
+                    break;
+                case 6:
+                    canvas.drawBitmap(sixPNG, digitWidth*i, 25, paint);
+                    break;
+                case 7:
+                    canvas.drawBitmap(sevenPNG, digitWidth*i, 25, paint);
+                    break;
+                case 8:
+                    canvas.drawBitmap(eightPNG, digitWidth*i, 25, paint);
+                    break;
+                case 9:
+                    canvas.drawBitmap(ninePNG, digitWidth*i, 25, paint);
+                    break;
+            }
+        }
+
     }
 
     private void drawCentreText(Canvas canvas, Paint paint, String text) {
