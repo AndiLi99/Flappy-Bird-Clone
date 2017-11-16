@@ -82,7 +82,7 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
     public void reset(){
         player.init();
         obstacleManager = new ObstacleManager(200, 250, 75, Color.BLACK);
-        score = 15;
+        score = 0;
 
     }
 
@@ -154,7 +154,8 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
         player.draw(canvas);
         obstacleManager.draw(canvas);
 
-        drawScore(canvas);
+        if(!gameOver)
+            drawScore(canvas, 0, 25, score);
 
         if (gameOver){
             Paint paint = new Paint();
@@ -164,6 +165,21 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
             canvas.drawBitmap(gameOverPic, Constants.SCREEN_WIDTH/2 - gameOverPic.getWidth()/2, Constants.SCREEN_HEIGHT/2 - 50 -scoreBoard.getHeight(), paint);
             canvas.drawBitmap(playAgain, Constants.SCREEN_WIDTH/2 - playAgain.getWidth()/2, Constants.SCREEN_HEIGHT/2 + 2*playAgain.getHeight()/2, paint);
             canvas.drawBitmap(scoreBoard, Constants.SCREEN_WIDTH/2 - scoreBoard.getWidth()/2, Constants.SCREEN_HEIGHT/2 - scoreBoard.getHeight()/2 - playAgain.getHeight()/2, paint);
+            if(getScoreLength(score) >= 2)
+                drawScore(canvas, Constants.SCREEN_WIDTH/2 + scoreBoard.getWidth()/5 + 5 + 20 - getScoreLength(score)*15,
+                        Constants.SCREEN_HEIGHT/2 - scoreBoard.getHeight()/3 - playAgain.getHeight()/3+1, score);
+            else
+                drawScore(canvas, Constants.SCREEN_WIDTH/2 + scoreBoard.getWidth()/5 + 5 ,
+                        Constants.SCREEN_HEIGHT/2 - scoreBoard.getHeight()/3 - playAgain.getHeight()/3+1, score);
+
+            if(getScoreLength(highScore) >= 2)
+                drawScore(canvas, Constants.SCREEN_WIDTH/2 + scoreBoard.getWidth()/5 + 5 + 20 - getScoreLength(highScore)*15,
+                        Constants.SCREEN_HEIGHT/2 - scoreBoard.getHeight()/3 - playAgain.getHeight()/3+55, highScore);
+            else
+                drawScore(canvas, Constants.SCREEN_WIDTH/2 + scoreBoard.getWidth()/5 + 5 ,
+                        Constants.SCREEN_HEIGHT/2 - scoreBoard.getHeight()/3 - playAgain.getHeight()/3+55, highScore);
+
+            System.out.println(highScore);
         } else if(!gameStarted){
             Paint paint = new Paint();
             paint.setTextSize(50);
@@ -172,22 +188,28 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
         }
     }
 
-    private void drawScore(Canvas canvas){
-
-
-        Paint paint = new Paint();
-
-        int tempScore = score;
+    private int getScoreLength(int thisScore)
+    {
+        int tempScore = thisScore;
         int scoreLength = 0;
         do
         {
             tempScore /= 10;
             scoreLength++;
         } while (tempScore != 0);
+        return scoreLength;
+    }
+
+    private void drawScore(Canvas canvas, int startx, int starty, int thisScore){
 
 
+        Paint paint = new Paint();
+
+
+
+        int scoreLength = getScoreLength(thisScore);
         int digitWidth = 20;
-        tempScore = score;
+        int tempScore = thisScore;
 
         for(int i = scoreLength; i > 0; i--)
         {
@@ -196,34 +218,34 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
             switch (thisDigit)
             {
                 case 0:
-                    canvas.drawBitmap(zeroPNG, digitWidth*i, 25, paint);
+                    canvas.drawBitmap(zeroPNG, startx + digitWidth*i, starty, paint);
                     break;
                 case 1:
-                    canvas.drawBitmap(onePNG, digitWidth*i, 25, paint);
+                    canvas.drawBitmap(onePNG, startx + digitWidth*i, starty, paint);
                     break;
                 case 2:
-                    canvas.drawBitmap(twoPNG, digitWidth*i, 25, paint);
+                    canvas.drawBitmap(twoPNG, startx + digitWidth*i, starty, paint);
                     break;
                 case 3:
-                    canvas.drawBitmap(threePNG, digitWidth*i, 25, paint);
+                    canvas.drawBitmap(threePNG, startx + digitWidth*i, starty, paint);
                     break;
                 case 4:
-                    canvas.drawBitmap(fourPNG, digitWidth*i, 25, paint);
+                    canvas.drawBitmap(fourPNG, startx + digitWidth*i, starty, paint);
                     break;
                 case 5:
-                    canvas.drawBitmap(fivePNG, digitWidth*i, 25, paint);
+                    canvas.drawBitmap(fivePNG, startx + digitWidth*i, starty, paint);
                     break;
                 case 6:
-                    canvas.drawBitmap(sixPNG, digitWidth*i, 25, paint);
+                    canvas.drawBitmap(sixPNG, startx + digitWidth*i, starty, paint);
                     break;
                 case 7:
-                    canvas.drawBitmap(sevenPNG, digitWidth*i, 25, paint);
+                    canvas.drawBitmap(sevenPNG, startx + digitWidth*i, starty, paint);
                     break;
                 case 8:
-                    canvas.drawBitmap(eightPNG, digitWidth*i, 25, paint);
+                    canvas.drawBitmap(eightPNG, startx + digitWidth*i, starty, paint);
                     break;
                 case 9:
-                    canvas.drawBitmap(ninePNG, digitWidth*i, 25, paint);
+                    canvas.drawBitmap(ninePNG, startx + digitWidth*i, starty, paint);
                     break;
             }
         }
