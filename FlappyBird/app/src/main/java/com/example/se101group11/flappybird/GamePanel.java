@@ -28,7 +28,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private Point playerPoint;
     private ObstacleManager obstacleManager;
     private Bitmap background= BitmapFactory.decodeResource(getResources(), R.drawable.bg);
-    private Bitmap playAgain = BitmapFactory.decodeResource(getResources(), R.drawable.play);
+    private Bitmap playAgain = BitmapFactory.decodeResource(getResources(), R.drawable.playagain);
     private boolean gameStarted = true;
     private boolean gameOver = false;
 
