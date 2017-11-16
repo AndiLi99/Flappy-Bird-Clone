@@ -28,7 +28,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private Point playerPoint;
     private ObstacleManager obstacleManager;
     private Bitmap background= BitmapFactory.decodeResource(getResources(), R.drawable.bg);
-    private Bitmap playAgain = BitmapFactory.decodeResource(getResources(), R.drawable.play);
 
     private Bitmap zeroPNG = BitmapFactory.decodeResource(getResources(), R.drawable.zero);
     private Bitmap onePNG = BitmapFactory.decodeResource(getResources(), R.drawable.one);
@@ -41,6 +40,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     private Bitmap eightPNG = BitmapFactory.decodeResource(getResources(), R.drawable.eight);
     private Bitmap ninePNG = BitmapFactory.decodeResource(getResources(), R.drawable.nine);
 
+
+
+    private Bitmap playAgain = BitmapFactory.decodeResource(getResources(), R.drawable.button);
+    private Bitmap scoreBoard = BitmapFactory.decodeResource(getResources(), R.drawable.menuscore);
+    private Bitmap gameOverPic = BitmapFactory.decodeResource(getResources(), R.drawable.gameover);
 
     private boolean gameStarted = true;
     private boolean gameOver = false;
@@ -71,8 +75,8 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
     }
 
-private boolean withinBitmap(int x, int y, Bitmap bitmap, int centreX, int centreY){
-    return x < centreX + bitmap.getWidth()/2 && x > centreX - bitmap.getWidth()/2 && y < centreY + bitmap.getHeight()/2 && y > centreY - bitmap.getHeight()/2;
+private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
+    return x < leftX + bitmap.getWidth() && x > leftX && y < topY + bitmap.getHeight() && y > topY;
 }
 
     public void reset(){
@@ -118,7 +122,7 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int centreX, int centr
 
                 if(gameOver)
                 {
-                    if (withinBitmap(x, y, playAgain, Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT/2)) {
+                    if (withinBitmap(x, y, playAgain,Constants.SCREEN_WIDTH/2 - playAgain.getWidth()/2, Constants.SCREEN_HEIGHT/2 + 2*playAgain.getHeight()/2)) {
                         reset();
                         gameOver = false;
                     }
@@ -157,7 +161,9 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int centreX, int centr
             paint.setTextSize(50);
             paint.setColor(Color.BLUE);
             drawCentreText(canvas, paint, "GAME OVER");
-            canvas.drawBitmap(playAgain, Constants.SCREEN_WIDTH/2 - playAgain.getWidth()/2, Constants.SCREEN_HEIGHT/2 - playAgain.getHeight()/2, paint);
+            canvas.drawBitmap(gameOverPic, Constants.SCREEN_WIDTH/2 - gameOverPic.getWidth()/2, Constants.SCREEN_HEIGHT/2 - 50 -scoreBoard.getHeight(), paint);
+            canvas.drawBitmap(playAgain, Constants.SCREEN_WIDTH/2 - playAgain.getWidth()/2, Constants.SCREEN_HEIGHT/2 + 2*playAgain.getHeight()/2, paint);
+            canvas.drawBitmap(scoreBoard, Constants.SCREEN_WIDTH/2 - scoreBoard.getWidth()/2, Constants.SCREEN_HEIGHT/2 - scoreBoard.getHeight()/2 - playAgain.getHeight()/2, paint);
         } else if(!gameStarted){
             Paint paint = new Paint();
             paint.setTextSize(50);
@@ -170,13 +176,6 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int centreX, int centr
 
 
         Paint paint = new Paint();
-//        paint.setColor(Color.BLUE);
-//        paint.setTextSize(30);
-//        String text = "" + score;
-//        canvas.drawText(text, 50, 50, paint);
-//        text = "" + highScore;
-//        paint.setColor(Color.RED);
-//        canvas.drawText(text, 100, 50, paint);
 
         int tempScore = score;
         int scoreLength = 0;
