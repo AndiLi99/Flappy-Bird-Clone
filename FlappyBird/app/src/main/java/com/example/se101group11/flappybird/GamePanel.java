@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.support.annotation.StringRes;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -25,7 +24,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
 
     private Rect r = new Rect();
     private RectPlayer player;
-    private Point playerPoint;
     private ObstacleManager obstacleManager;
     private Bitmap background= BitmapFactory.decodeResource(getResources(), R.drawable.bg);
 
@@ -60,14 +58,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
         score = 0;
         highScore = 0;
 
-        player = new RectPlayer(new Rect(100, 100, 200, 200), Color.rgb(255, 0, 0), BitmapFactory.decodeResource(getResources(), R.drawable.bird2));
-
-        playerPoint = new Point(Constants.SCREEN_WIDTH/2, Constants.SCREEN_HEIGHT*3/4);
-        player.update(playerPoint);
+        player = new RectPlayer(new Rect(100, 100, 200, 200), BitmapFactory.decodeResource(getResources(), R.drawable.bird));
+        Obstacle.bottomTubeBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bottomtube);
+        Obstacle.topTubeBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.toptube);
         reset();
-        obstacleManager = new ObstacleManager(100, 150,100, Color.BLACK);
-        Obstacle.bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.bottomtube);
-        Obstacle.bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.toptube);
         setFocusable(true);
     }
 
@@ -82,7 +76,7 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
 
     public void reset(){
         player.init();
-        obstacleManager = new ObstacleManager(200, 250, 75, Color.BLACK);
+        obstacleManager = new ObstacleManager(200, 250, 75);
         score = 0;
 
     }
@@ -149,7 +143,7 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
 
     public void update(){
         if (!gameOver && gameStarted){
-            player.update(playerPoint);
+            player.update();
             obstacleManager.update();
             if (obstacleManager.playerCollide(player)||player.getRectangle().bottom > Constants.SCREEN_HEIGHT)
                 gameOver = true;
@@ -170,14 +164,10 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
             drawScore(canvas, 0, 25, score);
 
         if (gameOver){
-            Paint paint = new Paint();
-            paint.setTextSize(50);
-            paint.setColor(Color.BLUE);
-            drawCentreText(canvas, paint, "GAME OVER");
-            canvas.drawBitmap(gameOverPic, Constants.SCREEN_WIDTH/2 - gameOverPic.getWidth()/2, Constants.SCREEN_HEIGHT/2 - 50 -scoreBoard.getHeight(), paint);
-            canvas.drawBitmap(playAgain, Constants.SCREEN_WIDTH/2 - playAgain.getWidth()/2, Constants.SCREEN_HEIGHT/2 + 2*playAgain.getHeight()/2, paint);
-            canvas.drawBitmap(menuButton, Constants.SCREEN_WIDTH/2 - menuButton.getWidth()/2, 3*Constants.SCREEN_HEIGHT/4, paint);
-            canvas.drawBitmap(scoreBoard, Constants.SCREEN_WIDTH/2 - scoreBoard.getWidth()/2, Constants.SCREEN_HEIGHT/2 - scoreBoard.getHeight()/2 - playAgain.getHeight()/2, paint);
+            canvas.drawBitmap(gameOverPic, Constants.SCREEN_WIDTH/2 - gameOverPic.getWidth()/2, Constants.SCREEN_HEIGHT/2 - 50 -scoreBoard.getHeight(), null);
+            canvas.drawBitmap(playAgain, Constants.SCREEN_WIDTH/2 - playAgain.getWidth()/2, Constants.SCREEN_HEIGHT/2 + 2*playAgain.getHeight()/2, null);
+            canvas.drawBitmap(menuButton, Constants.SCREEN_WIDTH/2 - menuButton.getWidth()/2, 3*Constants.SCREEN_HEIGHT/4, null);
+            canvas.drawBitmap(scoreBoard, Constants.SCREEN_WIDTH/2 - scoreBoard.getWidth()/2, Constants.SCREEN_HEIGHT/2 - scoreBoard.getHeight()/2 - playAgain.getHeight()/2, null);
             if(getScoreLength(score) >= 2)
                 drawScore(canvas, Constants.SCREEN_WIDTH/2 + scoreBoard.getWidth()/5 + 5 + 20 - getScoreLength(score)*15,
                         Constants.SCREEN_HEIGHT/2 - scoreBoard.getHeight()/3 - playAgain.getHeight()/3+1, score);
@@ -214,11 +204,7 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
     }
 
     private void drawScore(Canvas canvas, int startx, int starty, int thisScore){
-
-
         Paint paint = new Paint();
-
-
 
         int scoreLength = getScoreLength(thisScore);
         int digitWidth = 20;
@@ -262,17 +248,5 @@ private boolean withinBitmap(int x, int y, Bitmap bitmap, int leftX, int topY){
                     break;
             }
         }
-
-    }
-
-    private void drawCentreText(Canvas canvas, Paint paint, String text) {
-        paint.setTextAlign(Paint.Align.LEFT);
-        canvas.getClipBounds(r);
-        int cHeight = r.height();
-        int cWidth = r.width();
-        paint.getTextBounds(text, 0, text.length(), r);
-        float x = cWidth / 2f - r.width() / 2f - r.left;
-        float y = cHeight / 2f + r.height() / 2f - r.bottom;
-        canvas.drawText(text, x, y, paint);
     }
 }
