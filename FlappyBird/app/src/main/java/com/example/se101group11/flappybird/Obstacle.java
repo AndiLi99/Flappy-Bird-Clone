@@ -33,6 +33,9 @@ public class Obstacle implements GameObject{
         topRect = new Rect(startX, 0, startX+rectHeight, startY);
         botRect = new Rect(startX, startY + playerGap, startX + rectHeight, Constants.SCREEN_HEIGHT);
         System.out.println(topTubeBitmap.getHeight()- topRect.bottom);
+        if (topTubeBitmap.getHeight() -topRect.bottom < 0){
+            topRect.bottom = 1;
+        }
         croppedTop = Bitmap.createBitmap(topTubeBitmap,0,topTubeBitmap.getHeight()- topRect.bottom, topTubeBitmap.getWidth(), topRect.bottom);
 
     }

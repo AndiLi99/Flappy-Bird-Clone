@@ -22,7 +22,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback{
     public static int score;
     public static int highScore;
 
-    private Rect r = new Rect();
     private RectPlayer player;
     private ObstacleManager obstacleManager;
     private Bitmap background= BitmapFactory.decodeResource(getResources(), R.drawable.bg);
